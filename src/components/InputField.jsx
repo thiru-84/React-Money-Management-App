@@ -2,6 +2,16 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 function InputField({ fetchData, tableInfo }) {
+  const date = new Date();
+  const dateFormat = {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  };
+
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredDescription, setEnteredDescription] = useState("");
   const [transactionType, setTransactionType] = useState("Revenue");
@@ -37,7 +47,7 @@ function InputField({ fetchData, tableInfo }) {
       await fetchData();
       setEnteredAmount("");
       setEnteredDescription("");
-      setTransactionType("");
+
     } catch (error) {
       console.log(error);
     }
@@ -49,10 +59,10 @@ function InputField({ fetchData, tableInfo }) {
         <main className="font-bold lg:pt-8 pb-2 px-4 border-b border-gray-300 lg:border-b-0 flex flex-col justify-between">
           {/* <!-- date and time --> */}
           <div className="flex justify-between">
-            <p
-              id="current-date"
-              className="text-sm text-gray-500 font-normal"
-            ></p>
+            <p id="current-date" className="text-sm text-gray-500 font-normal">
+              {date.toLocaleString("en-GB", dateFormat)}
+            </p>
+
             <div className="lg:block hidden">
               <p className="text-sm text-gray-500 font-normal">
                 © Created by{" "}

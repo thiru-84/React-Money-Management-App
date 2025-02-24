@@ -2,28 +2,29 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 function TableFlow({ tableInfo, fetchData }) {
-  const [data, setData] = useState([]); // Store table data in state
-  const [editIndex, setEditIndex] = useState(null); // Track which row is being edited
+  const [data, setData] = useState([]); 
+  const [editIndex, setEditIndex] = useState(null); 
 
   useEffect(() => {
-    setData(tableInfo); // Populate state when data changes
+    setData(tableInfo); 
   }, [tableInfo]);
 
   const handleEditClick = (index) => {
-    setEditIndex(index); // Set the row to edit mode
+    setEditIndex(index); 
   };
 
   const handleSaveClick = () => {
-    setEditIndex(null); // Exit edit mode
+    setEditIndex(null); 
   };
 
+  // delete
   const handleDeleteClick = (index) => {
     axios.delete(`http://localhost:3001/table/${index}`);
   };
 
   const handleInputChange = (index, field, value) => {
     const updatedData = [...data];
-    updatedData[index][field] = value; // Update the specific field
+    updatedData[index][field] = value; 
     setData(updatedData);
   };
 
@@ -86,9 +87,9 @@ function TableFlow({ tableInfo, fetchData }) {
 
   return (
     <section className="w-full h-screen bg-[#F7F7F7] border-l border-gray-300 mt-14 lg:mt-0">
-      <div className="relative overflow-x-auto money-flow-table-container">
+      <div className="relative overflow-x-auto money-flow-table-container  h-screen overflow-y-auto">
         {data.length === 0 ? (
-          <div className="money-flow-table-no-data flex flex-col justify-center items-center align-center h-100">
+          <div className="money-flow-table-no-data flex flex-col justify-center items-center align-center h-screen">
             <div className="h-8 w-8 text-gray-500 flex justify-center items-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -109,7 +110,7 @@ function TableFlow({ tableInfo, fetchData }) {
           </div>
         ) : (
           <table className="w-full text-sm text-left rtl:text-right text-gray-500">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 border-b border-gray-300">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-50 border-b border-gray-300 sticky top-0 z-10">
               <tr>
                 <th scope="col" className="px-6 py-3">
                   Amount
